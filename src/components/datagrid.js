@@ -3,19 +3,26 @@ import styled from "styled-components";
 
 const Row = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 const Col = styled.div`
   border: 1px solid black;
-  padding: 4px;
+  padding: 2px;
   flex: 1;
+  word-break: break-all;
+  padding: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-align: center;
   background-color: bisque;
   color: black;
+  display: flex;
+  flex-wrap: wrap;
 `;
 const Grid = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 90vw;
+  max-width: 98vw;
   justify-content: center;
   position: absolute;
   left: 0;
@@ -24,7 +31,7 @@ const Grid = styled.div`
   margin-right: auto;
 `;
 
-const Datagrid = ({ rowsI, colsI, data }) => {
+const Datagrid = ({ rowsI, colsI, data, isUsers }) => {
   const [numRows, setRows] = useState(rowsI);
   const [numCols, setCols] = useState(colsI);
 
@@ -43,16 +50,23 @@ const Datagrid = ({ rowsI, colsI, data }) => {
       }*/
       let tempObjectWithParameters;
       //   As one row is extra for the headers
-      i == numRows
-        ? (tempObjectWithParameters = data[i - 1])
-        : (tempObjectWithParameters = data[i]);
+      i == 0
+        ? (tempObjectWithParameters = data[i])
+        : (tempObjectWithParameters = data[i - 1]);
 
       //Populating the header of the table
       if (i == 0) {
         let colDataInArray = Object.keys(tempObjectWithParameters);
         for (let j = 0; j < numCols; j++) {
           cells.push(
-            <Col key={j} style={{ backgroundColor: "orange", color: "white" }}>
+            <Col
+              key={j}
+              style={{
+                backgroundColor: "orange",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
               {colDataInArray[j].toUpperCase()}
             </Col>
           );
