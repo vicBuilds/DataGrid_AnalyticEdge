@@ -28,8 +28,14 @@
 2. Redux and Redux Toolkit for state management
 3. Styled Components
 4. React Router DOM for page navigation
+# Deployment:  Please look into the demo: https://data-grid-analytice.netlify.app/
 
 Developed by: Victor Mitra (victor.mitra15@gmail.com)
+
+
+
+
+
 
 /\***\*\*\*\*\*\*\***Instructions**\*\*\***/
 
