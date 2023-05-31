@@ -23,7 +23,6 @@ const Navbar = () => {
   return (
     <Container>
       <LinkContainer>
-        <Link to={"/"}>Home</Link>
         <Link to={"/users"}>Users</Link>
         <Link to={"/posts"}>Posts</Link>
         <Link to={"/comments"}>Comments</Link>

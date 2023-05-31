@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const DatGridContainer = styled.div`
   position: relative;
   display: flex;
@@ -42,7 +43,7 @@ const Users = () => {
   const userArray = useSelector((state) => state.user.userArray);
   const [user, setUser] = useState([]);
   const [rowsForUsers, setRowsForUsers] = useState(9);
-  const [searchBy, setSearchBy] = useState("name");
+  const [searchBy, setSearchBy] = useState("id");
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState(null);
   const colsForUsers = 8;
@@ -71,8 +72,14 @@ const Users = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     let filteredData = user.filter((item) => {
-      //console.log(item[searchBy], "==", searchValue);
-      return item[searchBy] == searchValue;
+      if (searchBy == "id") {
+        console.log("Hello Testing");
+        return item[searchBy] == searchValue;
+      } else {
+        const itemValue = String(item[searchBy]).toLowerCase();
+        const searchValueLower = searchValue.toLowerCase();
+        return itemValue == searchValueLower;
+      }
     });
 
     if (filteredData.length > 0) {

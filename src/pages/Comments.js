@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Datagrid from "../components/datagrid";
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getComments } from "../api";
 import { calculatePaginationandReturnArray } from "../utils";
@@ -43,7 +42,11 @@ const Comments = () => {
   let ei = useSelector((state) => state.comments.endingIndexForDataToBeShown);
   let pageNumber = useSelector((state) => state.comments.currentPage);
 
-  let [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [searchBy, setSearchBy] = useState("postId");
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState(null);
+  const headerArray = ["postId", "id", "name", "email", "body"];
 
   const dispatch = useDispatch();
 
@@ -60,16 +63,42 @@ const Comments = () => {
   }, []);
 
   useEffect(() => {
-    //console.log("Comemnts Array is", commentArray);
-
     let dataSlice = commentArray.slice(si, ei + 1);
-    //console.log("DAta SLice is ", dataSlice);
     setComments(dataSlice);
   }, [si, ei, commentArray]);
 
   const paginationArr = calculatePaginationandReturnArray(500, 10);
 
-  // This is constant given the type of Comments data
+  const handlechangeinSearchHeader = (e) => {
+    e.preventDefault();
+    setSearchBy(e.target.value);
+  };
+
+  const handleChangeinInputValue = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    let filteredData = commentArray.filter((item) => {
+      const itemValue = String(item[searchBy]).toLowerCase();
+      const searchValueLower = searchValue.toLowerCase();
+      return itemValue === searchValueLower;
+    });
+
+    if (filteredData.length > 0) {
+      setFilteredData(filteredData);
+    } else {
+      setFilteredData(null);
+    }
+  };
+
+  const resetData = (e) => {
+    e.preventDefault();
+    setFilteredData(null);
+  };
+
   const colsForComments = 5;
   const rowsForComments = 10;
 
@@ -80,6 +109,25 @@ const Comments = () => {
       <PageInfoContainer>
         <h4>Current Page: {pageNumber}</h4>
         <h4>Total No. of Available Pages: {paginationArr.length}</h4>
+        <div>
+          <label htmlFor="header-select">Select Header:</label>
+          <select
+            id="header-select"
+            onChange={(e) => handlechangeinSearchHeader(e)}
+          >
+            {headerArray.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+          <input
+            placeholder="Enter Value to Search"
+            onChange={(e) => handleChangeinInputValue(e)}
+          />
+          <button onClick={(e) => handleSearch(e)}>Search</button>
+          <button onClick={(e) => resetData(e)}>Reset</button>
+        </div>
       </PageInfoContainer>
       <DatGridContainer>
         {comments.length > 0 && (
@@ -87,6 +135,7 @@ const Comments = () => {
             rowsI={rowsForComments}
             colsI={colsForComments}
             data={comments}
+            filteredData={filteredData}
             isUsers={false}
           />
         )}
