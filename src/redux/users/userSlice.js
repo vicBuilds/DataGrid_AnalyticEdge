@@ -15,10 +15,7 @@ export const userSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       //   console.log("----****----", action.payload);
-      state.userArray = state.userArray.length
-        ? [...state.userArray, ...action.payload]
-        : action.payload;
-
+      state.userArray = action.payload;
       state.size = state.userArray.length;
     },
   },

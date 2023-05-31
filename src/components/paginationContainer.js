@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { storeDataInPost, changeIndexInPost } from "../redux/posts/postSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,6 +56,7 @@ const Pagination = ({ paginationArr, useCase }) => {
     let value = pageNumber * 10;
     let si = value - 10;
     let ei = value - 1;
+    let page = pageNumber;
 
     if (useCase == "Posts") {
       if (postArraySize < pageNumber * 10) {
@@ -65,13 +66,13 @@ const Pagination = ({ paginationArr, useCase }) => {
         //console.log("Helllo Data ", postFromAPi);
         dispatch(storeDataInPost(postFromAPi));
       }
-      dispatch(changeIndexInPost({ si, ei }));
+      dispatch(changeIndexInPost({ si, ei, page }));
     } else if (useCase == "Comments") {
       if (commentArraySize < pageNumber * 10) {
         let commentsFromAPi = await getComments(0, pageNumber * 10);
         dispatch(storeDataInComment(commentsFromAPi));
       }
-      dispatch(changeIndexInComment({ si, ei }));
+      dispatch(changeIndexInComment({ si, ei, page }));
     }
   };
 

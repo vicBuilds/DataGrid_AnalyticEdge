@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Datagrid from "../components/datagrid";
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getUsers } from "../api";
 import { calculatePaginationandReturnArray, cleanUpUsers } from "../utils";
@@ -22,18 +21,33 @@ const DatGridContainer = styled.div`
   width: 100%;
 `;
 
-let paginationArr = calculatePaginationandReturnArray(10, 10);
+const PageInfoContainer = styled.div`
+  width: 90vw;
+  align-self: center;
+  background-color: #ff9800;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 2;
+  position: sticky;
+  top: 0px;
+`;
+const Search = styled.div``;
 
-// This is constant given the type of Users data
-const colsForUsers = 8;
-const rowsForUsers = 9;
+const Input = styled.input``;
+
+const Button = styled.button``;
 
 const Users = () => {
-  const userArraysize = useSelector((state) => state.user.size);
+  const userArraySize = useSelector((state) => state.user.size);
   const userArray = useSelector((state) => state.user.userArray);
-  //console.log("User Array is*/*/*/*/*/* ", userArray);
-
   const [user, setUser] = useState([]);
+  const [rowsForUsers, setRowsForUsers] = useState(9);
+  const [searchBy, setSearchBy] = useState("name");
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState(null);
+  const colsForUsers = 8;
+  let headerArray = ["id", "name", "username", "email", "phone", "website"];
+  let paginationArr = calculatePaginationandReturnArray(10, 10);
 
   const dispatch = useDispatch();
 
@@ -44,14 +58,40 @@ const Users = () => {
     setUser(users);
   };
 
-  // As the User are only 10 so the API is being called once and cached in redux
-  // Data is being fetched from Redux from Next time onwards(No Need of Calling API multiple times)
+  const handlechangeinSearchHeader = (e) => {
+    e.preventDefault();
+    setSearchBy(e.target.value);
+  };
+
+  const handleChangeinInputValue = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    let filteredData = user.filter((item) => {
+      //console.log(item[searchBy], "==", searchValue);
+      return item[searchBy] == searchValue;
+    });
+
+    if (filteredData.length > 0) {
+      setFilteredData(filteredData);
+    } else {
+      setFilteredData(null);
+    }
+  };
+
+  const resetData = (e) => {
+    e.preventDefault();
+    setFilteredData(null);
+  };
+
   useEffect(() => {
-    if (userArraysize == 0) {
+    if (userArraySize === 0) {
       getUsersforAPI();
     } else {
       setUser(userArray);
-      // console.log("What to do now???", userArray);
     }
   }, []);
 
@@ -59,12 +99,50 @@ const Users = () => {
     <Container>
       <Navbar />
       <Header text={"USERS"} />
+      <PageInfoContainer>
+        <h4>Current Page: {1}</h4>
+        <h4>Total No. of Available Pages: {1}</h4>
+        <Search>
+          <label htmlFor="header-select">Select Header:</label>
+          <select
+            id="header-select"
+            onChange={(e) => {
+              handlechangeinSearchHeader(e);
+            }}
+          >
+            {headerArray.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+          <Input
+            placeholder="Enter Value to Search"
+            onChange={(e) => handleChangeinInputValue(e)}
+          />
+          <Button
+            onClick={(e) => {
+              handleSearch(e);
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={(e) => {
+              resetData(e);
+            }}
+          >
+            Reset
+          </Button>
+        </Search>
+      </PageInfoContainer>
       <DatGridContainer>
         {user.length > 0 && (
           <Datagrid
             rowsI={rowsForUsers}
             colsI={colsForUsers}
             data={user}
+            filteredData={filteredData}
             isUsers={true}
           />
         )}

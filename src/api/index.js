@@ -20,8 +20,7 @@ export async function getPosts(si, ei) {
     return data;
   } catch (error) {
     // Handle any errors that occur during the fetch or data parsing
-    console.log("Error deer:", error);
-    throw error;
+    console.log("Error", error);
   }
 }
 
@@ -36,6 +35,5 @@ export async function getComments(si, ei) {
   } catch (error) {
     // Handle any errors that occur during the fetch or data parsing
     console.log("Error:", error);
-    throw error;
   }
 }

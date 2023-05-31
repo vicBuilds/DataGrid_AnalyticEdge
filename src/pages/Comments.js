@@ -25,11 +25,23 @@ const DatGridContainer = styled.div`
   width: 100%;
 `;
 
+const PageInfoContainer = styled.div`
+  width: 90vw;
+  align-self: center;
+  background-color: #ff9800;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 2;
+  position: sticky;
+  top: 0px;
+`;
+
 const Comments = () => {
   const commentArraySize = useSelector((state) => state.comments.size);
   const commentArray = useSelector((state) => state.comments.commentArray);
   let si = useSelector((state) => state.comments.startingIndexForDataToBeShown);
   let ei = useSelector((state) => state.comments.endingIndexForDataToBeShown);
+  let pageNumber = useSelector((state) => state.comments.currentPage);
 
   let [comments, setComments] = useState([]);
 
@@ -65,6 +77,10 @@ const Comments = () => {
     <Container>
       <Navbar />
       <Header text={"COMMENTS"} />
+      <PageInfoContainer>
+        <h4>Current Page: {pageNumber}</h4>
+        <h4>Total No. of Available Pages: {paginationArr.length}</h4>
+      </PageInfoContainer>
       <DatGridContainer>
         {comments.length > 0 && (
           <Datagrid

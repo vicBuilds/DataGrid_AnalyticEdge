@@ -24,40 +24,24 @@ const Grid = styled.div`
   flex-direction: column;
   max-width: 90vw;
   justify-content: center;
-  /* position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px; */
 `;
 
-const Datagrid = ({ rowsI, colsI, data, isUsers }) => {
-  //console.log("THe value of data is  ", data);
-  const [numRows, setRows] = useState(rowsI);
+const Datagrid = ({ rowsI, colsI, data, filteredData, isUsers }) => {
   const [numCols, setCols] = useState(colsI);
+  let numRows;
+  filteredData ? (numRows = filteredData.length + 1) : (numRows = rowsI);
 
   const createGrid = () => {
     const rows = [];
+    const dataArray = filteredData ? filteredData : data; // Use filteredData if available, otherwise use data
     for (let i = 0; i <= numRows; i++) {
       const cells = [];
-      /* {
-        
-             {
-                name: "Jane",
-                age: 30,
-                email: "jane@example.com",
-            }
-        The data inside the tempObjectWithParameters is something like this
-      }*/
       let tempObjectWithParameters;
-      //   As one row is extra for the headers
-      i == 0
-        ? (tempObjectWithParameters = data[i])
-        : (tempObjectWithParameters = data[i - 1]);
+      i === 0
+        ? (tempObjectWithParameters = dataArray[i])
+        : (tempObjectWithParameters = dataArray[i - 1]);
 
-      //Populating the header of the table
-      if (i == 0) {
+      if (i === 0) {
         let colDataInArray = Object.keys(tempObjectWithParameters);
         for (let j = 0; j < numCols; j++) {
           cells.push(
@@ -74,13 +58,11 @@ const Datagrid = ({ rowsI, colsI, data, isUsers }) => {
           );
         }
       } else {
-        /* {
-        
-        ["John", 25, "john@example.com"]
+        //let colDataInArray = Object?.values(tempObjectWithParameters);
+        let colDataInArray = tempObjectWithParameters
+          ? Object.values(tempObjectWithParameters)
+          : [];
 
-        The data inside the colDataInArray  is something like this
-      }*/
-        let colDataInArray = Object.values(tempObjectWithParameters);
         for (let j = 0; j < numCols; j++) {
           cells.push(<Col key={j}>{colDataInArray[j]}</Col>);
         }

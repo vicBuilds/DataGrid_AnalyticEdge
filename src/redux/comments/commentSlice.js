@@ -5,6 +5,7 @@ const initialState = {
   size: 0,
   startingIndexForDataToBeShown: 0,
   endingIndexForDataToBeShown: 10,
+  currentPage: 1,
 };
 
 export const commentSlice = createSlice({
@@ -19,10 +20,11 @@ export const commentSlice = createSlice({
       state.size = state.commentArray.length;
     },
     changeIndexInComment: (state, action) => {
-      let { si, ei } = action.payload;
+      let { si, ei, page } = action.payload;
 
       state.startingIndexForDataToBeShown = si;
       state.endingIndexForDataToBeShown = ei;
+      state.currentPage = page;
     },
   },
 });

@@ -22,11 +22,27 @@ const DatGridContainer = styled.div`
   width: 100%;
 `;
 
+const PageInfoContainer = styled.div`
+  width: 90vw;
+  align-self: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #ff9800;
+  z-index: 2;
+  position: sticky;
+  top: 0px;
+`;
+
+const Input = styled.input``;
+
 const Posts = () => {
   const postArraySize = useSelector((state) => state.posts.size);
   const postArray = useSelector((state) => state.posts.postArray);
   let si = useSelector((state) => state.posts.startingIndexForDataToBeShown);
   let ei = useSelector((state) => state.posts.endingIndexForDataToBeShown);
+  let pageNumber = useSelector((state) => state.posts.currentPage);
+
+  console.log("Page Number is ", pageNumber);
 
   let [posts, setPosts] = useState([]);
 
@@ -60,6 +76,10 @@ const Posts = () => {
     <Container>
       <Navbar />
       <Header text={"POSTS"} />
+      <PageInfoContainer>
+        <h4>Current Page: {pageNumber}</h4>
+        <h4>Total No. of Available Pages: {paginationArr.length}</h4>
+      </PageInfoContainer>
       <DatGridContainer>
         {posts.length > 0 && (
           <Datagrid

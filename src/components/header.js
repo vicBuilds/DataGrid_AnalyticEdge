@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: center;
   width: 90vw;
   align-self: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   padding: 10px 0px;
 `;
 
