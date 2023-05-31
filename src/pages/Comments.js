@@ -36,6 +36,7 @@ const PageInfoContainer = styled.div`
 `;
 
 const Comments = () => {
+  // Data fetched from Redux to handle issues
   const commentArraySize = useSelector((state) => state.comments.size);
   const commentArray = useSelector((state) => state.comments.commentArray);
   let si = useSelector((state) => state.comments.startingIndexForDataToBeShown);
@@ -82,6 +83,7 @@ const Comments = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     let filteredData = commentArray.filter((item) => {
+      // Converting to String to handle the case where the value can be numeric. Search doesn't depend on Lowr Casr or Upper CAse.
       const itemValue = String(item[searchBy]).toLowerCase();
       const searchValueLower = searchValue.toLowerCase();
       return itemValue === searchValueLower;

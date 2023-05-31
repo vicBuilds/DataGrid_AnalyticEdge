@@ -37,10 +37,13 @@ const Datagrid = ({ rowsI, colsI, data, filteredData, isUsers }) => {
     for (let i = 0; i <= numRows; i++) {
       const cells = [];
       let tempObjectWithParameters;
+
+      // Just for Putting the headers
       i === 0
         ? (tempObjectWithParameters = dataArray[i])
         : (tempObjectWithParameters = dataArray[i - 1]);
 
+      // Please ahve a look here we have used object.keys to takes the keys for headers
       if (i === 0) {
         let colDataInArray = Object.keys(tempObjectWithParameters);
         for (let j = 0; j < numCols; j++) {
@@ -58,7 +61,7 @@ const Datagrid = ({ rowsI, colsI, data, filteredData, isUsers }) => {
           );
         }
       } else {
-        //let colDataInArray = Object?.values(tempObjectWithParameters);
+        // Otherwise taking the Object.values
         let colDataInArray = tempObjectWithParameters
           ? Object.values(tempObjectWithParameters)
           : [];
@@ -67,12 +70,12 @@ const Datagrid = ({ rowsI, colsI, data, filteredData, isUsers }) => {
           cells.push(<Col key={j}>{colDataInArray[j]}</Col>);
         }
       }
-
+      //Pushing a cell into the row
       rows.push(<Row key={i}>{cells}</Row>);
     }
     return <Grid>{rows}</Grid>;
   };
-
+  //Calling the Create Grid for the Grid
   return <>{createGrid()}</>;
 };
 

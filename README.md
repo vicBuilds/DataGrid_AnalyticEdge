@@ -1,4 +1,37 @@
-# Front End Test
+## Important Features of the Project:
+
+1. This repository contains code for fetching data from an API and rendering it into different data grids, which can be navigated. Once the data is fetched, it is stored in Redux and cached, eliminating the need for repeated API calls.
+
+2. All data grids are searchable, allowing users to filter data based on any chosen header.
+
+3. The Datagrid component is a reusable component that takes data as input, along with the number of rows and columns, and dynamically generates a table accordingly. Only one Datagrid component is used throughout the codebase, handling users, posts, and comments.
+
+4. The Datagrid component includes pagination, and the fetched results are cached and stored in Redux.
+
+5. The project follows a well-organized folder structure to enhance scalability and readability.
+
+6. Redux Toolkit, the latest version of Redux, is used for state management in this project.
+
+7. Styled Components is used for CSS handling. No external frameworks are used for building or styling.
+
+# Let's look into the Folder Structure:
+
+/src/api: Contains functions required for API calls.
+/src/pages: Contains dynamically rendered pages.
+/src/redux: Contains different slices or reducers.
+/src/utils: Contains utility or helper functions.
+/src/components: Contains reusable components like the navbar and datagrid.
+
+## Tech Stack Used:
+
+1. React.js
+2. Redux and Redux Toolkit for state management
+3. Styled Components
+4. React Router DOM for page navigation
+
+Developed by: Victor Mitra (victor.mitra15@gmail.com)
+
+/\***\*\*\*\*\*\*\***Instructions**\*\*\***/
 
 An ReactJS focused take home test for Front-end Developers.
 

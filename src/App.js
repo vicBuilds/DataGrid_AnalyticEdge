@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Posts from "./pages/Posts";
 import Comments from "./pages/Comments";

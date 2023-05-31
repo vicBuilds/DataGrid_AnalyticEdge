@@ -9,6 +9,7 @@ import Header from "../components/header";
 import Navbar from "../components/navbar";
 import { storeData } from "../redux/users/userSlice";
 
+// CSS For Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,19 +40,32 @@ const Input = styled.input``;
 const Button = styled.button``;
 
 const Users = () => {
+  // Data from Redux
   const userArraySize = useSelector((state) => state.user.size);
   const userArray = useSelector((state) => state.user.userArray);
+
   const [user, setUser] = useState([]);
+
+  // Initially nine rows
   const [rowsForUsers, setRowsForUsers] = useState(9);
+
+  // State for Label
   const [searchBy, setSearchBy] = useState("id");
+
+  // State for input value
   const [searchValue, setSearchValue] = useState("");
+
+  // State to store the filtered data. If the Filtered data is null means no search match
   const [filteredData, setFilteredData] = useState(null);
+
   const colsForUsers = 8;
+  // Header for the Search Dropdown
   let headerArray = ["id", "name", "username", "email", "phone", "website"];
   let paginationArr = calculatePaginationandReturnArray(10, 10);
 
   const dispatch = useDispatch();
 
+  // Only to be called once and then cached
   const getUsersforAPI = async () => {
     let users = await getUsers();
     users = await cleanUpUsers(users);
@@ -59,16 +73,19 @@ const Users = () => {
     setUser(users);
   };
 
+  // Change in Dropdown
   const handlechangeinSearchHeader = (e) => {
     e.preventDefault();
     setSearchBy(e.target.value);
   };
 
+  // Change in input value
   const handleChangeinInputValue = (e) => {
     e.preventDefault();
     setSearchValue(e.target.value);
   };
 
+  // Hit the search button
   const handleSearch = (e) => {
     e.preventDefault();
     let filteredData = user.filter((item) => {
@@ -81,6 +98,8 @@ const Users = () => {
         return itemValue == searchValueLower;
       }
     });
+
+    // If search matches
 
     if (filteredData.length > 0) {
       setFilteredData(filteredData);
@@ -143,6 +162,7 @@ const Users = () => {
           </Button>
         </Search>
       </PageInfoContainer>
+      {/* Dynamic Data Grid Container which takes user, coloums and rows */}
       <DatGridContainer>
         {user.length > 0 && (
           <Datagrid
