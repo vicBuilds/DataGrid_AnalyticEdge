@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { getUsers } from "../api";
 import { calculatePaginationandReturnArray, cleanUpUsers } from "../utils";
 import Pagination from "../components/paginationContainer";
+import Header from "../components/header";
+import Navbar from "../components/navbar";
 
 const Container = styled.div`
   display: flex;
@@ -38,6 +40,8 @@ const Users = () => {
   }, []);
   return (
     <Container>
+      <Navbar />
+      <Header text={"USERS"} />
       <DatGridContainer>
         {user && (
           <Datagrid
