@@ -22,16 +22,18 @@ const Col = styled.div`
 const Grid = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 98vw;
+  max-width: 90vw;
   justify-content: center;
-  position: absolute;
+  /* position: absolute;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px; */
 `;
 
 const Datagrid = ({ rowsI, colsI, data, isUsers }) => {
+  console.log("THe value of data is  ", data);
   const [numRows, setRows] = useState(rowsI);
   const [numCols, setCols] = useState(colsI);
 
