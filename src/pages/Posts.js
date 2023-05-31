@@ -45,9 +45,6 @@ const Posts = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("SI Now is ", si);
-    // console.log("POst Array Size is", postArray);
-
     let dataSlice = postArray.slice(si, ei + 1);
     //console.log("Hello Data Slice", dataSlice);
     setPosts(dataSlice);
