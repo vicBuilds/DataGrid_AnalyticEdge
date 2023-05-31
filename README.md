@@ -16,11 +16,11 @@
 
 # Let's look into the Folder Structure:
 
-/src/api: Contains functions required for API calls.
-/src/pages: Contains dynamically rendered pages.
-/src/redux: Contains different slices or reducers.
-/src/utils: Contains utility or helper functions.
-/src/components: Contains reusable components like the navbar and datagrid.
+1. /src/api: Contains functions required for API calls.
+2. /src/pages: Contains dynamically rendered pages.
+3. /src/redux: Contains different slices or reducers.
+4. /src/utils: Contains utility or helper functions.
+5. /src/components: Contains reusable components like the navbar and datagrid.
 
 ## Tech Stack Used:
 
