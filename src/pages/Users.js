@@ -4,22 +4,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getUsers } from "../api";
 import { calculatePaginationandReturnArray, cleanUpUsers } from "../utils";
+import Pagination from "../components/paginationContainer";
 
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 15px 0px;
-  width: 90vw;
-  background-color: #f9ed7d;
-  align-self: center;
-`;
-const LinkToPage = styled.div`
-  cursor: pointer;
-  color: blue;
-  font-size: 15px;
-  text-decoration: underline;
-`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,12 +29,9 @@ const Users = () => {
 
   const getUsersforAPI = async () => {
     let users = await getUsers();
-
     users = cleanUpUsers(users);
     setUser(users);
   };
-
-  const takeMeToPage = (pageNumber) => {};
 
   useEffect(() => {
     getUsersforAPI();
@@ -65,20 +48,7 @@ const Users = () => {
           />
         )}
       </DatGridContainer>
-      <PaginationContainer>
-        {paginationArr.map((pageNumber) => {
-          return (
-            <LinkToPage
-              onClick={(pageNumber) => {
-                takeMeToPage(pageNumber);
-              }}
-              key={pageNumber}
-            >
-              {pageNumber}
-            </LinkToPage>
-          );
-        })}
-      </PaginationContainer>
+      <Pagination paginationArr={paginationArr} useCase={"Users"} />
     </Container>
   );
 };
