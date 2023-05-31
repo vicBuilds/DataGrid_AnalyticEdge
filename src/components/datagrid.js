@@ -33,7 +33,7 @@ const Grid = styled.div`
 `;
 
 const Datagrid = ({ rowsI, colsI, data, isUsers }) => {
-  console.log("THe value of data is  ", data);
+  //console.log("THe value of data is  ", data);
   const [numRows, setRows] = useState(rowsI);
   const [numCols, setCols] = useState(colsI);
 
